@@ -1,16 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-	</head>
-	<body>
-		<input type="text" id="roomNumber" name="" value="">
-		<button type="button" name="button" onclick="pingServer();">Go</button>
-		<h2>Air pollution: <div id="airPollution">N/A</div></h2>
-		<h2>Number of people inside: <div id="peopleInside">N/A</div></h2>
-		<h2>Last updated date time: <div id="lastUpdated">N/A</div></h2>
-		<h2>Last updated date time: <div id="clientStatusMarker">N/A</div></h2>
-	</body>
-	<script src="index.js" charset="utf-8"></script>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+	<div class="title">
+		IoT Security Service
+	</div>
+	<div class="container">
+		<div class="col w-20">
+			<div class="sideCard">
+				<input type="text" id="roomNumber" name="" value="">
+				<button type="button" name="button" onclick="loadRoomStatus();">Go</button>
+			</div>
+			<div class="sideCard">
+				<h2>Air pollution: <div id="airPollution">N/A</div>
+				</h2>
+				<h2>Last updated date time: <div id="lastUpdated">N/A</div>
+				</h2>
+				<h2>Client status: <div id="clientStatusMarker">N/A</div>
+				</h2>
+			</div>
+		</div>
+		<div class="col w-60">
+			<button type="button" class="collapsible active">Chronology</button>
+			<div class="display chartContainer content">
+				<canvas id="roomStatsChart"></canvas>
+			</div>
+			<button type="button" class="collapsible">Logs</button>
+			<div class="chartContainer content">
+				<textarea id="textArea" readonly="true" disabled="true">
+				</textarea>
+				<canvas id="logsField"></canvas>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+<script src="index.js" charset="utf-8"></script>
+
 </html>
