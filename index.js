@@ -21,17 +21,19 @@ var roomStatsChart = new Chart("roomStatsChart", {
 type: "line",
 data: {
 	datasets: [{
+		tension: 0.3,
+		label: "Pollution",
 		backgroundColor: "rgba(255,255,255,0.8)",
-		borderColor: "rgba(247,104,24,0.6)"
+		borderColor: "rgba(238,236,241,0.6)"
 	}]
 	},
 options: {
   maintainAspectRatio: false,
 	legend: {
-    labels: {
-      fontColor: "blue",
-      ontSize: 18
-    }
+    display: false
+  },
+	tooltips: {
+    enabled: false
   },
 	scales: {
 		x: {
@@ -60,30 +62,37 @@ options: {
 async function loadRoomStatus() {
   if (alreadyRunning)
     return;
+	lastUpdated.classList.remove("notdisplayable");
   var alreadyRunning = true;
   let xhr = new XMLHttpRequest();
   var number = roomNumber.value;
 	loadStats(number);
 	loadLogs(number);
-  xhr.open("GET", "http://localhost:4567/mockStatus?roomId=" + number, true);
+  xhr.open("GET", "http://localhost:4567/status?roomId=" + number, true);
   xhr.send();
   xhr.onload = function() {
     var responseObj = JSON.parse(xhr.response);
     airPollution.innerHTML = responseObj.airPollution;
 		var timeDifference = Math.round(Math.abs(new Date()-new Date(responseObj.lastUpdatedTime))/(1000*60));
 		var timeDifferenceRounded = Math.round(Math.abs(new Date()-new Date(responseObj.lastUpdatedTime))/(1000*60));
+
+
 		if(timeDifference<1){
-			lastUpdated.innerHTML = "Less then a minute ago";
+			lastUpdated.innerHTML = "Updated just now";
 		}else if(timeDifference==1){
-			lastUpdated.innerHTML = "1 minute ago";
+			lastUpdated.innerHTML = "Updated 1 minute ago";
+		}else if(timeDifference>1 && timeDifference<=10){
+			lastUpdated.innerHTML = "Updated "+timeDifferenceRounded+" minutes ago";
 		}else{
-			lastUpdated.innerHTML = timeDifferenceRounded+" minutes ago";
+			lastUpdated.innerHTML = "Updated long time ago";
 		}
 
 		if(Math.abs(new Date(responseObj.lastUpdatedTime)-new Date())>=1000*60*2){
-			clientStatusMarker.innerHTML = '<span style="color:darkred;">Offline</span>';
+			lastUpdated.classList.remove("green");
+			lastUpdated.classList.add("red");
 		}else{
-			clientStatusMarker.innerHTML = '<span style="color:darkgreen;">Online</span>';
+			lastUpdated.classList.remove("red");
+			lastUpdated.classList.add("green");
 		}
 
 
@@ -93,7 +102,7 @@ async function loadRoomStatus() {
 
 async function loadStats(number){
 	let xhr = new XMLHttpRequest();
-	xhr.open("GET", "http://localhost:4567/mockRoomStats?roomId=" + number+"&entriesCount=15", true);
+	xhr.open("GET", "http://localhost:4567/roomStats?roomId=" + number+"&entriesCount=1000", true);
   xhr.send();
   xhr.onload = function() {
 		var stats = JSON.parse(xhr.response).stats;
@@ -107,7 +116,7 @@ async function loadStats(number){
 
 async function loadLogs(number){
 	let xhr = new XMLHttpRequest();
-	xhr.open("GET", "http://localhost:4567/mockRoomLogs?roomId=" + number+"&entriesCount=15", true);
+	xhr.open("GET", "http://localhost:4567/roomLogs?roomId=" + number+"&entriesCount=1000", true);
   xhr.send();
   xhr.onload = function() {
 		var logs = JSON.parse(xhr.response).logs;
