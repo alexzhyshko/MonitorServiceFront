@@ -2,7 +2,7 @@
 
 body{
 	font-family: 'Raleway', sans-serif;
-	background: #dcdcdc;
+	background: #DFF2F5;
 }
 
 .title{
@@ -10,7 +10,7 @@ body{
 	margin-top: 20px;
 	margin-bottom: 20px;
 	padding: 50px;
-	background: #b6b6b6;
+	background: #949494;
 	text-align: center;
 	width: 70%;
 	height: 10vh;
@@ -22,7 +22,7 @@ body{
 .subtitle{
 	margin: auto;
 	padding: 10px;
-	background: #b6b6b6;
+	background: #949494;
 	text-align: center;
 	width: 70%;
 	height: 2vh;
@@ -57,17 +57,106 @@ body{
 
 .sideCard{
 	height: 25vh;
-	background: #818181;
+	background: #949494;
 	color: white;
 	padding: 20px;
 	margin-bottom: 30px;
 	border: 2px solid black;
 	border-radius: 3px;
+	text-align: center;
 }
+
+
+.numberInput{
+	border: none;
+	border-bottom: 1px solid white;
+	height: 40px;
+	width: 250px;
+	line-height: 40px;
+	background: transparent;
+	color: #ADC3D1;
+	font-size: 40px;
+	padding: 0px;
+	transition: .25s;
+	text-align: center;
+	margin-top: 60px;
+}
+
+.numberInput:hover{
+	border-bottom: 1px solid #8FB1CC;
+	transition: .25s;
+}
+
+.numberInput:focus{
+	outline: none;
+	border-bottom: 1px solid #8FB1CC;
+	transition: .25s;
+}
+
+.btn{
+	background: #759CC9;
+	outline: none;
+	border: none;
+	transition: .25s;
+	margin-top: 40px;
+	width: 250px;
+	height: 60px;
+	color: white;
+	font-size: 25px;
+	border-radius: 3px;
+}
+
+.btn:hover{
+	background: #8FB1CC;
+	transition: .25s;
+}
+
+#airPollution{
+	height: 100px;
+	width: 250px;
+	line-height: 100px;
+	background: transparent;
+	color: #ADC3D1;
+	font-size: 60px;
+	padding: 0px;
+	transition: .25s;
+	text-align: center;
+}
+
+#lastUpdated{
+	margin-top: 30px;
+	height: 100px;
+	font-size: 24px;
+	padding-left: 10px;
+}
+
+#lastUpdated::before{
+	content: "";
+	position: absolute;
+	margin-left: -20px;
+	margin-top: 5px;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	border-radius: 10px;
+}
+
+.green:before{
+	background: darkgreen;
+}
+
+.red:before{
+	background: darkred;
+}
+
+.notdisplayable:before{
+	display: none;
+}
+
 
 .chartContainer{
 	height: calc(47vh + 6px);
-	background: #818181;
+	background: #949494;
 	color: white;
 	padding: 33px;
 	border: 2px solid black;
@@ -77,8 +166,8 @@ body{
 
 
 .collapsible {
-  background-color: #818181;
-  color: #444;
+  background-color: #949494;
+  color: white;
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -94,6 +183,7 @@ body{
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
+	background: #a9a9a9;
 	transition: .25s;
 }
 
